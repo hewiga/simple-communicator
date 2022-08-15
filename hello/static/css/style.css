@@ -1,0 +1,312 @@
+body {
+
+    background-color: rgb(66, 60, 60);
+    margin: 0;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+#menu {
+
+    width: 100%;
+    height: 10vh;
+    background-color: rgb(80, 74, 74);
+    border-bottom: 1px solid #000000;
+    position: relative;
+}
+
+#logo {
+
+    margin-left: 3vw;
+    
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#content {
+
+    width: 100%;
+}
+
+#content-box {
+
+    width: 30vw;
+    background-color: #FFFFFF;
+    margin: auto;
+    margin-top: 10vh;
+    border-radius: 10px;
+    border: 3px solid #000000
+}
+
+#form_butt {
+
+    display: block;
+    margin: auto;
+    margin-bottom: 5vh;
+    font-size: 20px;
+    background-color: #f5f5dc;
+
+    border: 1px solid #000000;
+    width: 40%;
+    height: 5vh;
+}
+
+#friends-list {
+
+    position: relative;
+    background-color: white;
+    width: 10vw;
+    height: 89.3vh;
+    border: 3px solid black;
+    float: left;
+}
+
+#add-friend {
+
+    width: 50%;
+    height: 7vh;
+    position: absolute;
+    bottom: 0px;
+    background-color: rgb(255, 151, 151);
+
+    text-align: center;
+    font-size: 6vh;
+}
+#friends-requests {
+
+    width: 50%;
+    height: 7vh;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background-color: rgb(127, 127, 247);
+
+    text-align: center;
+    font-size: 6vh;
+}
+
+#add-friend-form {
+
+    position: absolute;
+    top: calc(10vh + 1px);
+    margin-left: calc(20vh + 8px);
+}
+
+#friends-request-list {
+
+    font-size: 20px;
+    font-family: Arial;
+
+    position: absolute;
+    top: calc(10vh + 1px);
+    margin-left: calc(20vh + 8px);
+}
+
+#accept-friend {
+
+    background-color: green;
+    height: 80%;
+    float: left;
+    padding: 0px 5px 0px 5px;
+    margin-left: 5px;
+}
+#decline-friend {
+
+    position: relative;
+    background-color: red;
+    height: 80%;
+    float: left;
+    padding: 0px 5px 0px 5px;
+    margin-left: 5px;
+    
+}
+
+#chat {
+
+    width: 80%;
+    height: 89vh;
+    background-color: rgb(189, 189, 189);
+    float: left;
+    margin-left: 5%;
+    border-radius: 20px;
+
+    font-family: Arial;
+}
+#messages {
+
+    background-color: rgb(166, 178, 245);
+    width: 90%;
+    height: 85%;
+    margin: auto;
+    margin-top: 1%;
+    color: white;
+    border: 1px solid rgb(148, 148, 148);
+    overflow: auto;
+}
+#receiver-nick {
+
+    height: 20px;
+    margin-left: 10%;
+    margin-top: 1%;
+    font-size: 20px;
+}
+
+#write-message {
+    width: 80%;
+    margin: auto;
+    margin-top: 1%;
+    height: 25px;
+}
+#message {
+    font-size: 25px;
+    width: 90%;
+}
+#send-message {
+    margin-left: 2%;
+    font-size: 25px;
+}
+
+.option-text {
+
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.menu-button {
+
+    background-color: rgb(146, 168, 238);
+    min-width: 15vh;
+    height: 5vh;
+    border-radius: 7.5vh;
+
+    text-align: center;
+    position: relative;
+    float: right;
+    margin-right: 3vw;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.menu-button-text {
+
+    font-size: 20px;
+    font-family: Arial;
+
+    position: relative;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.tittle {
+
+    width: 100%;
+    font-size: 30px;
+    font-family: Arial;
+    margin: auto;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    text-align: center;
+}
+
+.href-button {
+
+    width: 50%;
+    height: 7vh;
+
+    margin: auto;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    
+    text-align: center;
+    background-color: rgb(146, 168, 238);
+    border-radius: 5px;
+    position: relative;
+}
+
+.button-content {
+
+    font-size: 30px;
+    font-family: Arial;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.input-field {
+
+    font-size: 20px;
+    width: 70%;
+    display: block;
+    margin: auto;
+    margin-top: 5vh;
+    margin-bottom: 7vh;
+
+    border: 3px solid rgb(14, 22, 143);
+    border-radius: 5px;
+}
+
+.err-info {
+    color: red;
+    text-align: center;
+    font-family: Arial;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.friend {
+
+    width: 100%;
+    border-bottom: 1px solid grey;
+
+    font-size: 30px;
+    font-family: Arial;
+}
+
+.friends-request {
+
+    height: 7vh;
+    background-color: white;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+#form_butt:hover {
+
+    background-color: #e4e4cb;
+    cursor: pointer;
+}
+
+.href-button:hover {
+
+    background-color: rgb(176, 188, 258);
+    cursor: pointer;
+}
+
+#logout-button:hover {
+    background-color: rgb(176, 188, 258);
+}
+
+#friends-requests:hover {
+
+    background-color: rgb(157, 157, 277);
+    cursor: pointer;
+}
+
+#add-friend:hover {
+
+    background-color: rgb(285, 181, 181);
+    cursor: pointer;
+}
+
+.friend:hover {
+
+    background-color: rgb(204, 200, 200);
+    cursor: pointer;
+}

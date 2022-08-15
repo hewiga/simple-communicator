@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block menu %}
+    <div id = "logo">
+        <a href = '/'><img src = "{% static 'multimedia/logo.png' %}"/></a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div id = "content-box">
+        <div class = "tittle">Join and talk with your friends!</div>
+        <a href = "/signin">
+            <div class = "href-button">
+                <div class = "button-content">
+                    Sign in
+                </div>
+            </div>
+        </a>
+        <div class = "tittle">Already has an account? Just log in!</div>
+        <a href="/login">
+            <div class = "href-button">
+                <div class = "button-content">
+                    Log In
+                </div>
+            </div>
+        </a>
+        <div class = "tittle">It is still for free! :)</div>
+
+    </div>
+
+{% endblock %}

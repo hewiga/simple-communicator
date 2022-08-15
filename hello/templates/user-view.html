@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block menu %}
+    <div id = "logo">
+        <a href = '/'><img src = "{% static 'multimedia/logo.png' %}"/></a>
+    </div>
+
+    <a href = "/logout">
+        <div class = "menu-button" id="logout-button">
+            <div class = "menu-button-text">
+            Logout
+            </div>    
+        </div>
+    </a>
+    <div class = "menu-button">
+        <div class = "menu-button-text">
+            {{ user.username }}
+        </div>    
+    </div>
+    
+    
+
+    
+{% endblock %}
+
+{% block content %}
+    <div id = "friends-list">
+        {% for friend in user.friends.all %}
+            <div class = "friend" onclick="select_receiver('{{friend}}', '{{user.username}}')">
+                <label style="margin-left: 1vh;">
+                    {{ friend }}
+                </label>
+            </div>
+        {% endfor %}
+
+        <div id = "add-friend" onclick="show_add_friend_form()">
+            +
+        </div>
+        <div id = "friends-requests" onclick="show_friends_request_list()">
+            ?
+        </div>
+    </div>
+
+    <div id = "add-friend-form" style = "display: none;">
+        <form action = "add_friend" method="post">
+            {% csrf_token %}
+            <input type="text" name="friends_nick" style="font-size: 20px;">
+            <input type="submit" value="Dodaj znajomego" onclick=hide_add_friend_for()>
+        </form>
+    </div>
+
+    <div id = "friends-request-list" style = "display: none;">
+        {% for friend in user.add_friend_request.all %}
+            <div class = "friends-request"> 
+                <label style="float: left;" class = "menu-button-text">{{ friend }}</label>
+                <div id = "accept-friend" onclick="send_accept('{{friend}}', this)">
+                    <label class = "option-text">Accept</label>
+                </div>
+                <div id = "decline-friend">
+                    <a href = "/delete">
+                        <label class = "option-text">Delete</label>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id = "chat">
+        <div id="receiver-nick">
+        </div>
+        <div id = "messages"></div>
+        <div id = "write-message">
+            <input type="text" id="message">
+            <button id = "send-message" onclick="send_message('{{user.username}}')">Send</button>
+        </div>
+    </div>
+{% endblock %}

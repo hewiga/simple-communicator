@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block menu %}
+    <div id = "logo">
+        <a href = '/'><img src = "{% static 'multimedia/logo.png' %}"/></a>
+    </div>  
+{% endblock %}
+
+{% block content %}
+
+    <div id = "content-box">
+        
+        <div class="tittle">Create new account</div>
+        <form action="signin_user" method="post">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.password }}
+            {{ form.confirm_password }}
+            <input id="form_butt" type="submit" value="Create account">
+        </form>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class = "err-info">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}
