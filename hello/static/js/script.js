@@ -1,4 +1,6 @@
 function getCookie(name) {
+    //this function just return csrf token
+    //which is necessary for django to handle request 
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
@@ -14,18 +16,6 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function send_request(path, data) {
-
-    var request = new XMLHttpRequest();
-    var csrftoken = getCookie('csrftoken');
-
-    request.open("POST", path, true);
-    request.setRequestHeader('X-CSRFToken', csrftoken);
-    request.setRequestHeader('Content-Type', 'application/json');
-
-    request.send(data)
-}
-
 function select_receiver(friend, user) {
 
     document.getElementById("receiver-nick").textContent = friend;
@@ -35,10 +25,10 @@ function select_receiver(friend, user) {
         "User1": user,
         "User2": friend,
     });
-    //send_request(path, data);
     var request = new XMLHttpRequest();
     var csrftoken = getCookie('csrftoken');
 
+    //download from server all messages in selected chat
     request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var answ = JSON.parse(this.responseText)
@@ -61,6 +51,7 @@ function enter_chat(friend, user) {
     var request = new XMLHttpRequest();
     var csrftoken = getCookie('csrftoken');
 
+    //ask server if there is any new message on chat each 5sec
     var interval = setInterval(function() {
         request.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -85,9 +76,15 @@ function enter_chat(friend, user) {
 
 function send_message(sender) {
 
-    receiver = document.getElementById("receiver-nick").textContent;
-    message_content = document.getElementById("message").value;
-    document.getElementById("message").value = '';
+    receiver = document.getElementById("receiver-nick").innerText; //get receivers nick
+    message_content = document.getElementById("message").value;    //get message content
+    document.getElementById("message").value = '';                 //clear textarea
+
+    if (receiver.length === 0){
+        //chat was not picked
+        return;
+    }
+
     path = "/send_message";
     data = JSON.stringify({
         "Sender": sender,
@@ -95,18 +92,28 @@ function send_message(sender) {
         "Content": message_content
     });
 
-    send_request(path, data);
+    var request = new XMLHttpRequest();
+    var csrftoken = getCookie('csrftoken');
+
+    request.open("POST", path, true);
+    request.setRequestHeader('X-CSRFToken', csrftoken);
+    request.setRequestHeader('Content-Type', 'application/json');
+
+    request.send(data);
     display_message(sender, message_content);
 }
 
 function display_message(sender, content) {
+
 
     var message = document.createElement("div");
     message.style.width = "100%";
     message.style.height = "10%";
     message.style.borderBottom = "1px solid grey";
     message.innerHTML = "<b>" + sender + ": </b>" + content;
-    document.getElementById("messages").appendChild(message);
+    let messages_window = document.getElementById("messages");
+    messages_window.appendChild(message);
+    messages_window.scrollTop = messages_window.scrollHeight;
 }
 
 function send_accept(friend, e) {

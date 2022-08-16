@@ -37,7 +37,7 @@ def create_new_user(request):
             nick = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
-            pass_hash = make_password(form.cleaned_data['password'])
+            pass_hash = make_password(password)
             user = User.objects.create(username = nick, password = pass_hash)
 
             auth.login(request, user)
@@ -87,6 +87,8 @@ def add_friend(request):
     return redirect('welcome')
 
 def accept(request):
+    #accept friend request
+
     data = json.loads(request.body)
     friends_username = data["Friend"]
     users_username = request.user
@@ -107,6 +109,7 @@ def accept(request):
     users_profile.add_friend_request.remove(friends_profile)
 
 def delete(request):
+    #decline friend request
     print("chuj")
 
 def join_chat(request):
@@ -153,7 +156,10 @@ def send_message(request):
         if len(chat) == 0:
             chat = sender_profile.chats.all().filter(user2 = receiver)
 
-        chat[0].messages.add(new_message)
+        chat.first().messages.add(new_message)
+        response = HttpResponse()
+        response.status_code = 200
+        return response
 
 def get_messages(request):
 
