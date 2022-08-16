@@ -116,14 +116,14 @@ function display_message(sender, content) {
     messages_window.scrollTop = messages_window.scrollHeight;
 }
 
-function send_accept(friend, e) {
+function answer_friend_request(friend, username, e, path) {
 
     var element = e.parentNode;
     var request = new XMLHttpRequest();
 
     var csrftoken = getCookie('csrftoken');
 
-    request.open("POST", "/accept", true);
+    request.open("POST", path, true);
     request.setRequestHeader('X-CSRFToken', csrftoken);
     request.setRequestHeader('Content-Type', 'application/json');
 
@@ -132,6 +132,18 @@ function send_accept(friend, e) {
     }));
 
     element.remove();
+
+    //create new friend on friends bar
+    if (path === "/accept") {
+        var friends_list = document.getElementById("friends-list");
+        var new_friend = document.createElement("div");
+        new_friend.setAttribute('class', 'friend');
+        new_friend.innerHTML = '<label style="margin-left: 1vh;">' + friend + '</label>';
+
+        var function_call = "select_receiver('" + friend + "', '" + username + "')";
+        new_friend.setAttribute('onclick', function_call);
+        friends_list.appendChild(new_friend);
+    }
 }
 
 function show_add_friend_form() {

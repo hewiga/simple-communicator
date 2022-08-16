@@ -54,13 +54,11 @@
         {% for friend in user.add_friend_request.all %}
             <div class = "friends-request"> 
                 <label style="float: left;" class = "menu-button-text">{{ friend }}</label>
-                <div id = "accept-friend" onclick="send_accept('{{friend}}', this)">
+                <div id = "accept-friend" onclick="answer_friend_request('{{friend}}', '{{user.username}}', this, '/accept')">
                     <label class = "option-text">Accept</label>
                 </div>
-                <div id = "decline-friend">
-                    <a href = "/delete">
-                        <label class = "option-text">Delete</label>
-                    </a>
+                <div id = "decline-friend" onclick="answer_friend_request('{{friend}}', '{{user.username}}', this, '/delete')">
+                    <label class = "option-text">Delete</label>
                 </div>
             </div>
         {% endfor %}

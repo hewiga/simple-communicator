@@ -108,9 +108,28 @@ def accept(request):
     users_profile.friends.add(friends_profile)
     users_profile.add_friend_request.remove(friends_profile)
 
+    response = HttpResponse()
+    response.status_code = 200
+    return response
+
 def delete(request):
     #decline friend request
-    print("chuj")
+
+    if request.method == "POST":
+        data = json.loads(request.body)
+        friends_username = data["Friend"]
+        users_username = request.user
+
+        users_profile = Profile.objects.get(username = users_username)
+        friends_profile = Profile.objects.get(username = friends_username)
+        users_profile.add_friend_request.remove(friends_profile)
+
+        response = HttpResponse()
+        response.status_code = 200
+        return response
+
+
+
 
 def join_chat(request):
     if request.method == "POST":
@@ -135,6 +154,7 @@ def join_chat(request):
 
         data = json.dumps(data)
         response = HttpResponse(data)
+        response.status_code = 200
         return response
         
 def send_message(request):
