@@ -108,11 +108,13 @@ a {
 
 #accept-friend {
 
+    position: relative;
     background-color: green;
     height: 80%;
     float: left;
-    padding: 0px 5px 0px 5px;
     margin-left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 #decline-friend {
 
@@ -120,9 +122,9 @@ a {
     background-color: red;
     height: 80%;
     float: left;
-    padding: 0px 5px 0px 5px;
     margin-left: 5px;
-    
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #chat {
@@ -303,6 +305,16 @@ a {
 
     background-color: rgb(285, 181, 181);
     cursor: pointer;
+}
+
+#accept-friend:hover {
+    cursor: pointer;
+    background-color: rgb(45, 153, 45);
+}
+
+#decline-friend:hover {
+    cursor: pointer;
+    background-color: rgb(255, 96, 96);
 }
 
 .friend:hover {

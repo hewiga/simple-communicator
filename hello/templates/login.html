@@ -19,5 +19,12 @@
             {{form.password}}
             <input id="form_butt" type="submit" value="Log in">
         </form>
+        {% if messages %}
+            {% for message in messages %}
+                <div class = "err-info">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}

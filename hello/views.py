@@ -52,7 +52,7 @@ def create_new_user(request):
         return render(request, "signin.html", {'form': form})
 
 
-def user(request):
+def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -63,7 +63,7 @@ def user(request):
             auth.login(request, user)
             return redirect('welcome')
         else:
-            messages.info(request, 'Invalid Username of Password')
+            messages.info(request, 'Invalid Username or Password')
             return redirect('login')
 
 def logout(request):
@@ -74,12 +74,13 @@ def add_friend(request):
     if request.method == 'POST':
         friends_nick = request.POST['friends_nick']
 
+        #try to find profile with the given nickname
         try:
             friends_profile = Profile.objects.get(username = friends_nick)
         except Profile.DoesNotExist:
             friends_profile = None
 
-
+        #send invitation if profile exist
         if friends_profile is not None:
             users_profile = Profile.objects.get(username = request.user)
             friends_profile.add_friend_request.add(users_profile)
@@ -128,8 +129,10 @@ def delete(request):
         response.status_code = 200
         return response
 
-
-
+    #if not POST return "Bad request"
+    response = HttpResponse()
+    response.status_code = 400
+    return response
 
 def join_chat(request):
     if request.method == "POST":
@@ -143,6 +146,7 @@ def join_chat(request):
         if len(chat) == 0:
             chat = sender_profile.chats.all().filter(user2 = receiver)
 
+        #download all messages from chat and send them back to user
         data = []
         messages = chat[0].messages.all()
         for message in messages:
@@ -156,6 +160,11 @@ def join_chat(request):
         response = HttpResponse(data)
         response.status_code = 200
         return response
+
+    #if not POST return "Bad request"
+    response = HttpResponse()
+    response.status_code = 400
+    return response
         
 def send_message(request):
     if request.method == "POST":
@@ -164,6 +173,7 @@ def send_message(request):
         receiver = data['Receiver']
         message_content = data['Content']
 
+        #create new message
         new_message = Message()
         new_message.sender = sender
         new_message.receiver = receiver
@@ -171,6 +181,7 @@ def send_message(request):
         new_message.is_readed = False
         new_message.save()
 
+        #find chat between users
         sender_profile = Profile.objects.get(username = sender)
         chat = sender_profile.chats.all().filter(user1 = receiver)
         if len(chat) == 0:
@@ -180,6 +191,11 @@ def send_message(request):
         response = HttpResponse()
         response.status_code = 200
         return response
+    
+    #if not POST return "Bad request"
+    response = HttpResponse()
+    response.status_code = 400
+    return response 
 
 def get_messages(request):
 
@@ -211,3 +227,8 @@ def get_messages(request):
         response.status_code = 200
 
         return response
+
+    #if not POST return "Bad request"
+    response = HttpResponse()
+    response.status_code = 400
+    return response

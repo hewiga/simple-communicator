@@ -46,17 +46,22 @@ function select_receiver(friend, user) {
     enter_chat(friend, user);
 }
 
+var interval;
 function enter_chat(friend, user) {
     
     var request = new XMLHttpRequest();
     var csrftoken = getCookie('csrftoken');
+    document.getElementById("messages").innerHTML = "";
 
+    if(interval) {
+        clearInterval(interval);
+    }
     //ask server if there is any new message on chat each 5sec
-    var interval = setInterval(function() {
+    interval = setInterval(function() {
         request.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState === 4 && this.status === 200) {
                 var answ;
-                if (this.responseText.length != 0) { 
+                if (this.responseText.length !== 0) { 
                     answ = JSON.parse(this.responseText);
                     for (var i = 0; i < answ.length; i++) {
                         display_message(answ[i].Sender, answ[i].Content)
